@@ -20,7 +20,7 @@ Begin by installing this package through Composer. Edit your project's `composer
 ```javascript
 {
     "require": {
-        "stevemo/cpanel": "dev-master"
+        "stevemo/cpanel": "dev-develop"
     }
 }
 ```
@@ -31,14 +31,8 @@ You need to add the following service provider.
 Open `app/config/app.php`, and add a new items to the providers array.
 
 ```php
-<<<<<<< HEAD
-'Former\FormerServiceProvider',
-'Cartalyst\Sentry\SentryServiceProvider',
-'Stevemo\Cpanel\CpanelServiceProvider',
-=======
 Cartalyst\Sentry\SentryServiceProvider
 Stevemo\Cpanel\CpanelServiceProvider
->>>>>>> develop
 ```
 
 Then add the following Class Aliases

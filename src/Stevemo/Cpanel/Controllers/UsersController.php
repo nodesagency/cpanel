@@ -205,7 +205,7 @@ class UsersController extends BaseController {
 
             if( $this->userForm->update($credentials) )
             {
-                return Redirect::route('cpanel.users.index')
+                return Redirect::route('admin.employees.index')
                     ->with('success', Lang::get('cpanel::users.update_success'));
             }
 

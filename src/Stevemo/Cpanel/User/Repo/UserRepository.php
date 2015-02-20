@@ -338,7 +338,18 @@ class UserRepository implements CpanelUserInterface {
         $user->first_name = $attributes['first_name'];
         $user->last_name = $attributes['last_name'];
         $user->email = $attributes['email'];
-        $user->permissions = $attributes['permissions'];
+
+	if (isset($attributes['permissions'])) {
+	        $user->permissions = $attributes['permissions'];
+	}
+
+	if (isset($attributes['office'])) {
+	        $user->office = $attributes['office'];
+	}
+
+	if (isset($attributes['phone'])) {
+	        $user->phone = $attributes['phone'];
+	}
 
         if( array_key_exists('password', $attributes) )
         {
@@ -347,7 +358,7 @@ class UserRepository implements CpanelUserInterface {
 
         $user->save();
 
-        if ( array_key_exists('groups',$attributes) )
+        if ( array_key_exists('groups',$attributes) && !empty($attributes['groups'] ))
         {
             $this->syncGroups($attributes['groups'], $user);
         }
