@@ -116,7 +116,32 @@ class CpanelController extends BaseController {
 
 				$userToken = \NodesSSO::authenticatePrincipal(Input::get('login_attribute'), Input::get('password'), '0.0.0.0');
 
-				$user = \Sentry::findUserById(2);
+				$user = \NodesSSO::findPrincipalByName(Input::get('login_attribute'));
+
+				foreach ($user->attributes->SOAPAttribute as $item) {
+					$userData[$item->name] = $item->values->string;
+				}
+				//dd($userData);
+				$check = \DB::table('users')->where('email', '=', $userData['mail'])->first();
+				if (empty($check)) {
+					$userId = \DB::table('users')->insertGetId([
+						'id' => time(),
+						'email' => $user->name,
+						'password' => 'nodes_pw',
+						'permissions' => '{"superuser":1}',
+						'activated' => 1,
+						'first_name' => $userData['givenName'],
+						'last_name' => $userData['sn']
+					]);
+				} else {
+					$userId = $check->id;
+				}
+
+				$user = \Sentry::findUserById($userId);
+
+				//$user->first_name = $userData['givenName'];
+				//$user->last_name = $userData['sn'];
+				//$user->email = $userData['mail'];
 
 				\Sentry::login($user, false);
 
