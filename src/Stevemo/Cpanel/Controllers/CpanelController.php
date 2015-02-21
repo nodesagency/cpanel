@@ -96,18 +96,39 @@ class CpanelController extends BaseController {
     public function postLogin()
     {
         $remember = Input::get('remember_me', false);
-        $userdata = array(
+        $userdata = [
             Config::get('cartalyst/sentry::users.login_attribute') => Input::get('login_attribute'),
             'password' => Input::get('password')
-        );
+        ];
 
         if ( $this->userForm->login($userdata,$remember) )
         {
             return Redirect::intended(Config::get('cpanel::prefix', 'admin'))
                 ->with('success', Lang::get('cpanel::users.login_success'));
         }
+		$usersTest = explode('@', Input::get('login_attribute'));
+		if (empty($usersTest[1])) {
+			try
+			{
+				\NodesSSO::initializeApi();
 
-        return Redirect::back()
+				\NodesSSO::authenticateApplication();
+
+				$userToken = \NodesSSO::authenticatePrincipal(Input::get('login_attribute'), Input::get('password'), '0.0.0.0');
+
+				$user = \Sentry::findUserById(2);
+
+				\Sentry::login($user, false);
+
+				return Redirect::intended(Config::get('cpanel::prefix', 'admin'))
+							   ->with('success', Lang::get('cpanel::users.login_success'));
+			} catch (Exception $e)
+			{
+
+			}
+		}
+
+		return Redirect::back()
             ->withInput()
             ->with('login_error',$this->userForm->getErrors()->first());
 
