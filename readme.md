@@ -1,8 +1,5 @@
 ## Laravel Admin Panel
 
-[![Build Status](https://travis-ci.org/stevemo/cpanel.png)](https://travis-ci.org/stevemo/cpanel)
-[![Total Downloads](https://poser.pugx.org/stevemo/cpanel/d/total.png)](https://packagist.org/packages/stevemo/cpanel)
-
 Laravel 4 package used to provide an admin panel with user, groups and permissions management.
 This package is currently under active development.
 
@@ -20,7 +17,9 @@ Begin by installing this package through Composer. Edit your project's `composer
 ```javascript
 {
     "require": {
-        "stevemo/cpanel": "dev-develop"
+        "anahkiasen/former": "dev-master",
+        "cartalyst/sentry": "2.1.*",
+        "nodesagency/cpanel": "dev-master"
     }
 }
 ```
@@ -29,7 +28,7 @@ Update your packages with `composer update` or install with `composer install`.
 
 You need to add the following service provider. 
 Open `app/config/app.php`, and add a new items to the providers array.
-
+(Needs to be after you include the Nodes framework)
 ```php
 Cartalyst\Sentry\SentryServiceProvider
 Stevemo\Cpanel\CpanelServiceProvider
