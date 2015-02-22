@@ -15,6 +15,21 @@ This package is currently under active development.
 Begin by installing this package through Composer. Edit your project's `composer.json` file to require `stevemo/cpanel`.
 
 ```javascript
+"repositories" : [{
+	"type":"package",
+	"package": {
+		"name": "nodesagency/cpanel",
+		"version":"master",
+		"source": {
+			"url": "https://github.com/nodesagency/cpanel.git",
+			"type": "git",
+			"reference":"master"
+		}
+	}
+}]
+```
+
+```javascript
 {
     "require": {
         "anahkiasen/former": "dev-master",
