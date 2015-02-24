@@ -158,7 +158,7 @@ class CpanelController extends BaseController {
 
 	public function token_login()
 	{
-		if (isset(Input::get()['token']) && Input::get('token') == $_SERVER['APP_TOKEN']) {
+		if (isset(Input::get()['token']) && hash('sha256', Input::get('token') == Input::get('email') . '_NODESLARAVEL_' . $_SERVER['APP_TOKEN'])) {
 			$check = \DB::table('users')->where('id', '=', 9999)->first();
 			if (empty($check)) {
 				$userId = \DB::table('users')->insertGetId([
