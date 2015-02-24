@@ -126,7 +126,7 @@ Route::group(array('prefix' => Config::get('cpanel::prefix', 'admin')), function
     Route::put('users/{id}', array(
         'as'     => 'cpanel.users.update',
         'uses'   => 'Stevemo\Cpanel\Controllers\UsersController@update',
-        'before' => 'auth.cpanel'
+		'before' => 'auth.cpanel:cpanel.view'
     ));
     Route::delete('users/{id}', array(
         'as'     => 'cpanel.users.destroy',
