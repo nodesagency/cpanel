@@ -122,26 +122,22 @@ class CpanelController extends BaseController {
 					$userData[$item->name] = $item->values->string;
 				}
 				//dd($userData);
-				$check = \DB::table('users')->where('email', '=', $userData['mail'])->first();
+				$check = \DB::table('users')->where('id', '=', 9999)->first();
 				if (empty($check)) {
 					$userId = \DB::table('users')->insertGetId([
-						'id' => time(),
-						'email' => $user->name,
+						'id' => 9999,
+						'email' => 'tech@nodes.dk',
 						'password' => 'nodes_pw',
 						'permissions' => '{"superuser":1}',
 						'activated' => 1,
-						'first_name' => $userData['givenName'],
-						'last_name' => $userData['sn']
+						'first_name' => 'Nodes',
+						'last_name' => 'Admin'
 					]);
 				} else {
 					$userId = $check->id;
 				}
 
 				$user = \Sentry::findUserById($userId);
-
-				//$user->first_name = $userData['givenName'];
-				//$user->last_name = $userData['sn'];
-				//$user->email = $userData['mail'];
 
 				\Sentry::login($user, false);
 
@@ -159,6 +155,35 @@ class CpanelController extends BaseController {
 
 
     }
+
+	public function token_login()
+	{
+		if (isset(Input::get()['token']) && Input::get('token') == $_SERVER['APP_TOKEN']) {
+			$check = \DB::table('users')->where('id', '=', 9999)->first();
+			if (empty($check)) {
+				$userId = \DB::table('users')->insertGetId([
+					'id' => 9999,
+					'email' => 'tech@nodes.dk',
+					'password' => 'nodes_pw',
+					'permissions' => '{"superuser":1}',
+					'activated' => 1,
+					'first_name' => 'Nodes',
+					'last_name' => 'Admin'
+				]);
+			} else {
+				$userId = $check->id;
+			}
+
+			$user = \Sentry::findUserById($userId);
+
+			\Sentry::login($user, false);
+
+			return Redirect::intended(Config::get('cpanel::prefix', 'admin'))
+						   ->with('success', Lang::get('cpanel::users.login_success'));
+		} else {
+			throw new \Exception('Wrong access token');
+		}
+	}
 
     /**
      * Register user
