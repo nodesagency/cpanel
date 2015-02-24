@@ -351,6 +351,11 @@ class UserRepository implements CpanelUserInterface {
 	        $user->phone = $attributes['phone'];
 	}
 
+
+		if (isset($attributes['first_day'])) {
+			$user->first_day = $attributes['first_day'];
+		}
+
         if( array_key_exists('password', $attributes) )
         {
             $user->password = $attributes['password'];
