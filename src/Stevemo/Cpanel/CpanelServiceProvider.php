@@ -34,7 +34,7 @@ class CpanelServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('stevemo/cpanel');
+		$this->package('nodesagency/cpanel');
         include __DIR__ .'/routes.php';
 	}
 

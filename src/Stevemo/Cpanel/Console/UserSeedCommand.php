@@ -25,7 +25,7 @@ class UserSeedCommand extends Command {
      * Exceute the console command
      *
      * @author Steve Montambeault
-     * @link   http://stevemo.ca
+     * @link   http://nodesagency.ca
      *
      * @return void
      */

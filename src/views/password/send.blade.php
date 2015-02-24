@@ -36,7 +36,7 @@
 <!-- jQuery 1.10.2 -->
 {{ HTML::script('packages/stevemo/cpanel/adminlte/js/jquery-1.10.2.js') }}
 <!-- Bootstrap -->
-{{ HTML::script('packages/stevemo/cpanel/adminlte/js/bootstrap.min.js') }}
+{{ HTML::script('nodesagency') }}
 
 </body>
 </html>

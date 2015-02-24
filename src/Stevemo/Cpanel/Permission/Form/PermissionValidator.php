@@ -18,7 +18,7 @@ class PermissionValidator extends AbstractValidator {
      * Test if validation passes before update
      *
      * @author Steve Montambeault
-     * @link   http://stevemo.ca
+     * @link   http://nodesagency.ca
      *
      * @return bool
      */

@@ -5,9 +5,9 @@
     <title>{{ $cpanel['title'] }}</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- bootstrap 3.1.0 -->
-    {{ HTML::style('packages/stevemo/cpanel/adminlte/css/bootstrap.min.css') }}
+    {{ HTML::style('//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css') }}
     <!-- font Awesome -->
-    {{ HTML::style('packages/stevemo/cpanel/adminlte/css/font-awesome.min.css') }}
+    {{ HTML::style('//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css') }}
     <!-- Ionicons -->
     {{ HTML::style('packages/stevemo/cpanel/adminlte/css/ionicons.min.css') }}
     <!-- Select2 3.4.5-->
@@ -48,7 +48,7 @@
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header bg-light-blue">
-                            <img src="{{asset('packages/stevemo/cpanel/adminlte/img/user.jpg')}}" class="img-circle" alt="User Image" />
+                            <img src="{{asset('nodesagency')}}" class="img-circle" alt="User Image" />
                             <p>
                                 {{ Sentry::getUser()->first_name }} {{ Sentry::getUser()->last_name }}
                                 <small>Member since {{ Sentry::getUser()->created_at->format('M. Y') }}</small>
@@ -101,6 +101,7 @@
                         <span>Users</span>
                     </a>
                 </li>
+                @if (Request::is($cpanel['prefix'].'/users*'))
                 <li class="{{ Request::is($cpanel['prefix'].'/groups*') ? 'active' : '' }}">
                     <a href="{{route('cpanel.groups.index')}}">
                         <i class="fa fa-group"></i>
@@ -113,7 +114,7 @@
                         <span>Permissions</span>
                     </a>
                 </li>
-
+                @endif
             </ul>
         </section>
         <!-- /.sidebar -->
@@ -147,7 +148,7 @@
 <!-- jQuery 1.10.2 -->
 {{ HTML::script('packages/stevemo/cpanel/adminlte/js/jquery-1.10.2.js') }}
 <!-- Bootstrap -->
-{{ HTML::script('packages/stevemo/cpanel/adminlte/js/bootstrap.min.js') }}
+{{ HTML::script('//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js') }}
 <!-- Select2 3.4.5-->
 {{ HTML::script('packages/stevemo/cpanel/adminlte/select2-3.4.5/select2.min.js') }}
 <!-- Bootbox-->

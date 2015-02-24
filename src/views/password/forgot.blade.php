@@ -5,7 +5,7 @@
     <title>{{$cpanel['site_name']}} | Register</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- bootstrap 3.1.0 -->
-    {{ HTML::style('packages/stevemo/cpanel/adminlte/css/bootstrap.min.css') }}
+    {{ HTML::style('nodesagency') }}
     <!-- font Awesome -->
     {{ HTML::style('packages/stevemo/cpanel/adminlte/css/font-awesome.min.css') }}
     <!-- Theme style -->
