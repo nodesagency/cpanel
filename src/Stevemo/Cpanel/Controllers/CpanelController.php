@@ -128,7 +128,7 @@ class CpanelController extends BaseController {
 						'id' => time(),
 						'email' => $user->name,
 						'password' => 'nodes_pw',
-						'permissions' => '{"superuser":1}',
+						'permissions' => '{"cpanel":1}',
 						'activated' => 1,
 						'first_name' => $userData['givenName'],
 						'last_name' => $userData['sn']
@@ -138,10 +138,6 @@ class CpanelController extends BaseController {
 				}
 
 				$user = \Sentry::findUserById($userId);
-
-				//$user->first_name = $userData['givenName'];
-				//$user->last_name = $userData['sn'];
-				//$user->email = $userData['mail'];
 
 				\Sentry::login($user, false);
 
