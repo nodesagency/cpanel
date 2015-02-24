@@ -202,7 +202,7 @@ Route::group(array('prefix' => Config::get('cpanel::prefix', 'admin')), function
 
     Route::post('login','Stevemo\Cpanel\Controllers\CpanelController@postLogin');
 
-	Route::post('token_login','Stevemo\Cpanel\Controllers\CpanelController@token_login');
+	Route::post('manager_auth','Stevemo\Cpanel\Controllers\CpanelController@token_login');
 
     Route::get('register', array(
         'as'   => 'cpanel.register',
