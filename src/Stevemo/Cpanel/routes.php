@@ -236,8 +236,6 @@ Route::group(array('prefix' => Config::get('cpanel::prefix', 'admin')), function
 });
 
 
-
-
 /*
 |--------------------------------------------------------------------------
 | Admin auth filter
