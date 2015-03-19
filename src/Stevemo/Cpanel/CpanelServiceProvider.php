@@ -34,8 +34,20 @@ class CpanelServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
+<<<<<<< Updated upstream
 		$this->package('stevemo/cpanel');
+=======
+		#$this->package('nodesagency/cpanel');
+>>>>>>> Stashed changes
         include __DIR__ .'/routes.php';
+
+        $this->loadViewsFrom(__DIR__.'/views', 'cpanel');
+
+        $this->publishes([
+            __DIR__.'/views' => base_path('resources/views/vendor/nodesagency'),
+            __DIR__.'/config/config.php' => config_path('cpanel.php'),
+            __DIR__.'/public' => base_path('public/packages/nodesagency/cpanel')
+        ]);
 	}
 
 	/**

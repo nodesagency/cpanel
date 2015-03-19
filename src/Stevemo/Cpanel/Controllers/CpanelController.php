@@ -25,6 +25,10 @@ class CpanelController extends BaseController {
     {
         $this->users = $users;
         $this->userForm = $userForm;
+        $cpanel = config('cpanel.site_config',array());
+        $cpanel['prefix'] = config('cpanel.prefix','');
+
+        view()->share('cpanel', $cpanel);
     }
 
 
@@ -52,7 +56,8 @@ class CpanelController extends BaseController {
     public function getLogin()
     {
         $login_attribute = Config::get('cartalyst/sentry::users.login_attribute');
-        return View::make('cpanel::dashboard.login', compact('login_attribute'));
+        #return View::make('cpanel::dashboard.login', compact('login_attribute'));
+		return view('cpanel::dashboard.login', compact('login_attribute'));
     }
 
     /**
@@ -96,8 +101,14 @@ class CpanelController extends BaseController {
     public function postLogin()
     {
         $remember = Input::get('remember_me', false);
+<<<<<<< Updated upstream
         $userdata = array(
             Config::get('cartalyst/sentry::users.login_attribute') => Input::get('login_attribute'),
+=======
+        $userdata = [
+            //config('cartalyst/sentry::users.login_attribute') => Input::get('login_attribute'),
+            'email' => Input::get('email'),
+>>>>>>> Stashed changes
             'password' => Input::get('password')
         );
 

@@ -2,10 +2,10 @@
 <html class="bg-black">
 <head>
     <meta charset="UTF-8">
-    <title>{{ $cpanel['title'] }} | Log in</title>
+    <title>{{$cpanel['site_name']}} | Register</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- bootstrap 3.1.0 -->
-    {{ HTML::style('packages/stevemo/cpanel/adminlte/css/bootstrap.min.css') }}
+    {{ HTML::style('nodesagency') }}
     <!-- font Awesome -->
     {{ HTML::style('packages/stevemo/cpanel/adminlte/css/font-awesome.min.css') }}
     <!-- Theme style -->
@@ -21,36 +21,43 @@
 <body class="bg-black">
 
 <div class="form-box" id="login-box">
-    <div class="header">Sign In</div>
-    <form action="{{ route('cpanel.login') }}" method="post">
+    <div class="header">Register New Membership</div>
+    {{Form::open(array('route'=>'cpanel.register'))}}
         <div class="body bg-gray">
-            @if (  Session::has('login_error') )
+            @if (  Session::has('errors') )
             <div class="alert alert-danger">
-                {{ Session::get('login_error') }}
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
             </div>
             @endif
-            @if (  Session::has('success') )
-            <div class="alert alert-success">
-                {{ Session::get('success') }}
-            </div>
-            @endif
             <div class="form-group">
-                <input type="text" name="login_attribute" class="form-control" placeholder="{{{ ucfirst($login_attribute) }}}"/>
+                {{ Form::text('first_name',null,array('class'=>'form-control','placeholder'=>'First Name')) }}
             </div>
             <div class="form-group">
-                <input type="password" name="password" class="form-control" placeholder="Password"/>
+                {{ Form::text('last_name',null,array('class'=>'form-control','placeholder'=>'Last Name')) }}
             </div>
             <div class="form-group">
-                <input type="checkbox" name="remember_me" value="true"/> Remember me
+                {{ Form::email('email',null,array('class'=>'form-control','placeholder'=>'Email')) }}
+            </div>
+            <div class="form-group">
+                {{ Form::password('password',array('class'=>'form-control','placeholder'=>'Password')) }}
+            </div>
+            <div class="form-group">
+                {{ Form::password('password_confirmation',array('class'=>'form-control','placeholder'=>'Retype password')) }}
             </div>
         </div>
         <div class="footer">
-            <button type="submit" class="btn bg-olive btn-block">Sign me in</button>
-            <p><a href="{{route('cpanel.password.forgot')}}">I forgot my password</a></p>
-            <a href="{{route('cpanel.register')}}" class="text-center">Register a new membership</a>
+
+            <button type="submit" class="btn bg-olive btn-block">Sign me up</button>
+
+            <a href="{{route('cpanel.login')}}" class="text-center">I already have a membership</a>
         </div>
-    </form>
+    {{ Form::close() }}
 </div>
+
 
 <!-- jQuery 1.10.2 -->
 {{ HTML::script('packages/stevemo/cpanel/adminlte/js/jquery-1.10.2.js') }}

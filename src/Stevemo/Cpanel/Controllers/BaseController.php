@@ -1,11 +1,17 @@
 <?php namespace Stevemo\Cpanel\Controllers;
 
-use Controller;
+use \App\Http\Controllers\Controller;
 use View;
 use Config;
 
 class BaseController extends Controller {
 
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->setupLayout();
+    }
     /**
      * Setup the layout used by the controller.
      *
@@ -13,14 +19,20 @@ class BaseController extends Controller {
      */
     protected function setupLayout()
     {
+
         if ( ! is_null($this->layout))
         {
             $this->layout = View::make($this->layout);
         }
         //share the config option to all the views
-        $cpanel = Config::get('cpanel::site_config',array());
+        /*$cpanel = Config::get('cpanel::site_config',array());
         $cpanel['prefix'] = Config::get('cpanel::prefix','');
-        View::share('cpanel', $cpanel);
+
+        view()->share('cpanel', $cpanel);*/
+        $cpanel = config('cpanel.site_config',array());
+        $cpanel['prefix'] = config('cpanel.prefix','');
+
+        view()->share('cpanel', $cpanel);
     }
 
     /**
