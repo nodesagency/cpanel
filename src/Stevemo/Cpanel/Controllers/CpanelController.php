@@ -156,6 +156,12 @@ class CpanelController extends BaseController {
 
     }
 
+    /**
+     * Mananger auth
+     *
+     * @author cr@nodes.dk
+     * @return mixed
+     */
 	public function token_login()
 	{
         // Check app token
