@@ -158,31 +158,42 @@ class CpanelController extends BaseController {
 
 	public function token_login()
 	{
-		if (isset(Input::get()['token']) && hash('sha256', Input::get('token') == Input::get('email') . '_NODESLARAVEL_' . $_SERVER['APP_TOKEN'])) {
-			$check = \DB::table('users')->where('id', '=', 9999)->first();
-			if (empty($check)) {
-				$userId = \DB::table('users')->insertGetId([
-					'id' => 9999,
-					'email' => 'tech@nodes.dk',
-					'password' => 'nodes_pw',
-					'permissions' => '{"superuser":1}',
-					'activated' => 1,
-					'first_name' => 'Nodes',
-					'last_name' => 'Admin'
-				]);
-			} else {
-				$userId = $check->id;
-			}
+        // Check app token
+        if(empty($_SERVER['APP_TOKEN'])) {
+            return Redirect::intended(route('cpanel.login'))
+                           ->with('success', 'Server APP_TOKEN is empty');
+        }
 
-			$user = \Sentry::findUserById($userId);
+        // Check the passed token vs a hash of email, constant and server token for current build
+        if (hash('sha256', \Input::get('email') . '_NODESLARAVEL_' . $_SERVER['APP_TOKEN']) != \Input::get('token')) {
+            return Redirect::intended(route('cpanel.login'))
+                           ->with('success', 'Manager token did not match');
+        }
 
-			\Sentry::login($user, false);
+        // Check if there is a tech@nodes.dk user
+        $check = \DB::table('users')->where('email', '=', 'tech@nodes.dk')->first();
 
-			return Redirect::intended(Config::get('cpanel::prefix', 'admin'))
-						   ->with('success', Lang::get('cpanel::users.login_success'));
-		} else {
-			throw new \Exception('Wrong access token');
-		}
+        // Else generate one
+        if (empty($check)) {
+            $userId = \DB::table('users')->insertGetId([
+                'id' => 999999,
+                'email' => 'tech@nodes.dk',
+                'password' => 'nodes_pw',
+                'permissions' => '{"superuser":1}',
+                'activated' => 1,
+                'first_name' => 'Nodes',
+                'last_name' => 'Admin'
+            ]);
+        } else {
+            $userId = $check->id;
+        }
+
+        $user = \Sentry::findUserById($userId);
+
+        \Sentry::login($user, false);
+
+        return Redirect::intended(Config::get('cpanel::prefix', 'admin'))
+                       ->with('success', Lang::get('cpanel::users.login_success'));
 	}
 
     /**
