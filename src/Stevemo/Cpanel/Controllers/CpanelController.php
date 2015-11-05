@@ -171,7 +171,7 @@ class CpanelController extends BaseController {
         }
 
         // Check the passed token vs a hash of email, constant and server token for current build
-        if (hash('sha256', \Input::get('email') . '_NODESLARAVEL_' . $_SERVER['APP_TOKEN']) != \Input::get('token')) {
+        if (hash('sha256', \Input::get('email') . '_NODESBACKEND_' . $_SERVER['APP_TOKEN']) != \Input::get('token')) {
             return Redirect::intended(route('cpanel.login'))
                            ->with('success', 'Manager token did not match');
         }
